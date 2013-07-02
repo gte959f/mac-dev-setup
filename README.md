@@ -748,9 +748,39 @@ Download and install the latest VirtualBox from here [virtualboxsite](https://ww
 
 ## Vagrant
 
+Vagrant is a configuration management system for virtualized environments such as those running VirtualBox, EC2, VMWare.  Vagrant relies on Ruby scripts and some symlink magic to allow management of the virtual machine from within
+the host operating system (i.e. your Mac OS environment).  Files under the /vagrant directory will show up inside of the virtual machine thereby creating a bridge of sorts.  Vagrant makes it easier to do configuration management
+that is portable across developer machines.  Since most virtualized environments like EC2 use linux this provides a way to create a linux image and run it on your Mac, thereby, reducing surprises when you deploy to EC2.  Vagrant
+has plugins for EC2 to allow easier deployment as well.  Chef and Puppet would be complimentary tools to Vagrant.
+
+Vagrant can be found here along with [install and download instructions](http://www.vagrantup.com)
+
+Here is how to use Puppet and Vagrant [together](http://www.andrewmunsell.com/blog/development-environments-with-vagrant-and-puppet/)
+
+The base linux images that you use are up to you, however, Ubuntu is a popular option and one of the latest versions - 13 can be found here
+
 ## Docker
 
+Docker provides a type of subvirtualization using LXC (linux containers).  This is less overhead and useful in a multi-tentant cloud hosted environment where different users need their software isolated while at the same time
+the provider needs to contain costs by reusing a shared pool of virtual machines.  Docker/LXC based isolation is essentially built into the latest linux kernels and creates process control groups which the OS itself makes sure
+are isolated.
+
+**NOTE**: The below instructions should be modified in that the latest Docker repository only has a Vagrantfile for Ubuntu 12.X.  If you want to use Ubuntu 13.x (recommended) which has the 3.8 kernel already in place then
+and alternate Vagrantfile or modifications to this existing Vagrantfile will be needed.  Info can be pulled from [here](http://docs.docker.io/en/latest/installation/ubuntulinux/#ubuntu-raring)
+
+Instructions for installing Docker inside of a Vagrant/VirtualBox VM are [here](http://docs.docker.io/en/latest/installation/vagrant/).
+
 ## Amazon Tools
+
+Here are instructions if you want [homebrew install of amazon tools](http://clayrichardson.me/2013/03/29/brew-install-all-available-aws-tools/)
+
+[AMI Images](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonLinuxAMIBasics.html)
+
+[AWS Setup for PHP](http://phpmaster.com/from-zero-to-cloud-2/)
+
+[Newer manual install](http://www.admon.org/setup-amazon-ec2-api-tools-on-macbook/)
+
+[Older manual install](http://www.robertsosinski.com/2008/01/26/starting-amazon-ec2-with-mac-os-x/) instructions 
 
 ## Projects folder
 
