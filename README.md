@@ -753,11 +753,41 @@ the host operating system (i.e. your Mac OS environment).  Files under the /vagr
 that is portable across developer machines.  Since most virtualized environments like EC2 use linux this provides a way to create a linux image and run it on your Mac, thereby, reducing surprises when you deploy to EC2.  Vagrant
 has plugins for EC2 to allow easier deployment as well.  Chef and Puppet would be complimentary tools to Vagrant.
 
-Vagrant can be found here along with [install and download instructions](http://www.vagrantup.com)
+Vagrant can be found here along with [download](http://downloads.vagrantup.com) and [install instructions](http://www.vagrantup.com)
+
+Next install the Vagrant AWS plugin:
+
+    $ vagrant plugin install vagrant-aws
+    $ ... make sure you have a Vagrantfile and AWS box before you do a vagrant up and want to use aws - see below
+    $ vagrant up --provider=aws
+
+Next you must have a Vagrant box image corresponding to VirtualBox (or other provider) and a VagrantFile with configuration details in the current working directory.  The base linux images that you use are up to you, however, Ubuntu is a popular option and 
+one of the latest versions can be found here [Ubuntu vagrant boxes](http://cloud-images.ubuntu.com/vagrant/) and [Ubuntu vagrant sources](https://launchpad.net/ubuntu/raring/i386/vagrant)
+Also there are [official third party Vagrant boxes](http://www.vagrantbox.es) and [Puppet Labs boxes](http://puppet-vagrant-boxes.puppetlabs.com)
+
+Once you have downloaded the box image of your choice, save it to a directory
+
+    $ cp <your VagrantFile> ~/Projects/<your project>
+    $ cd ~/Projects/<your project>
+    $ vagrant box add {title} {url}
+    $ vagrant init {title}
+    $ vagrant up
+
+If you would like to use Vagrant with an alternate provider such as AWS a few modification will be needed:
+
+    $ ... make sure you have a Vagrantfile for AWS box before you do a vagrant up and want to use aws see below
+    $ vagrant box add ...
+    $ vagrant init ...
+    $ vagrant up --provider=aws
+
+AWS detailed [instructions and code](https://github.com/mitchellh/vagrant-aws) for converting and AMI to Vagrant with AWS provider
+
 
 Here is how to use Puppet and Vagrant [together](http://www.andrewmunsell.com/blog/development-environments-with-vagrant-and-puppet/)
 
-The base linux images that you use are up to you, however, Ubuntu is a popular option and one of the latest versions - 13 can be found here
+Dummy box example [instructions](http://serverascode.com/2013/04/25/where-to-find-vagrant-boxes.html) for creating a blank VagrantFile based on Ubuntu raw images
+
+Lamp box example [instructions](https://github.com/marcojanssen/vagrant-puppet-lamp) with Vagrant (probably want to modify VagrantFile to use i386 image).
 
 ## Docker
 
@@ -774,7 +804,8 @@ Instructions for installing Docker inside of a Vagrant/VirtualBox VM are [here](
 
 Here are instructions if you want [homebrew install of amazon tools](http://clayrichardson.me/2013/03/29/brew-install-all-available-aws-tools/)
 
-[AMI Images](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonLinuxAMIBasics.html)
+Amazon directory of [AMI Images](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonLinuxAMIBasics.html)
+Ubuntu can be found here [Ubuntu official images](http://cloud-images.ubuntu.com)
 
 [AWS Setup for PHP](http://phpmaster.com/from-zero-to-cloud-2/)
 
