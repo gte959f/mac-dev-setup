@@ -757,28 +757,35 @@ Vagrant can be found here along with [download](http://downloads.vagrantup.com) 
 
 Next install the Vagrant AWS plugin:
 
-    $ vagrant plugin install vagrant-aws
-    $ ... make sure you have a Vagrantfile and AWS box before you do a vagrant up and want to use aws - see below
-    $ vagrant up --provider=aws
+    $ vagrant plugin install vagrant-aws    
 
 Next you must have a Vagrant box image corresponding to VirtualBox (or other provider) and a VagrantFile with configuration details in the current working directory.  The base linux images that you use are up to you, however, Ubuntu is a popular option and 
 one of the latest versions can be found here [Ubuntu vagrant boxes](http://cloud-images.ubuntu.com/vagrant/) and [Ubuntu vagrant sources](https://launchpad.net/ubuntu/raring/i386/vagrant)
 Also there are [official third party Vagrant boxes](http://www.vagrantbox.es) and [Puppet Labs boxes](http://puppet-vagrant-boxes.puppetlabs.com)
 
-Once you have downloaded the box image of your choice, save it to a directory
+Once you have selected the box image of your choice, you can either download it ahead of time/use an exisitng box or use the alternative method below to have Vagrant automatically download the box.
 
-    $ cp <your VagrantFile> ~/Projects/<your project>
-    $ cd ~/Projects/<your project>
-    $ vagrant box add {title} {url}
-    $ vagrant init {title}
-    $ vagrant up
+    $ mkdir <your project dir>
+    $ cd <your project dir>
+    $ vagrant box add {title} {url or filepath} //This is the box image you previously decided to use
+    $ vagrant init {title} //This creates a VagrantFile in the current directory with the box name
+    $ vagrant up //This startups up the box using the VagrantFile as configuration
+
+Alternatively you can just manually edit a blank or previously created VagrantFile to point it to the right box image and Vagrant will download and assign it to the indicated name when you do vagrant up.
+
+    $ mkdir <your project dir>
+    $ cd <your project dir>
+    $ vagrant init {title} //This creates a VagrantFile in the current directory with the box name i.e. config.vm.box={title}
+    $ subl VagrantFile //Set config.vm.box_url = <your box file url or file path>
+    $ vagrant up //This startups up the box using the VagrantFile and will download the box image and assign to {title}
+
 
 If you would like to use Vagrant with an alternate provider such as AWS a few modification will be needed:
 
     $ ... make sure you have a Vagrantfile for AWS box before you do a vagrant up and want to use aws see below
     $ vagrant box add ...
     $ vagrant init ...
-    $ vagrant up --provider=aws
+    $ vagrant up --provider=aws //This ensures that the AWS provider is used with vagrant and prior to this the AWS tools must be installed.
 
 AWS detailed [instructions and code](https://github.com/mitchellh/vagrant-aws) for converting and AMI to Vagrant with AWS provider
 
