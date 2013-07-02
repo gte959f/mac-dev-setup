@@ -191,7 +191,7 @@ Let's set up some basic configuration. Download the [.gitconfig](/nicolahery/mac
 
 It will add some color to the `status`, `branch`, and `diff` Git commands, as well as a couple aliases. Feel free to take a look at the contents of the file, and add to it to your liking.
 
-Next, we'll define your Git user (should be the same name and email you use for [GitHub](https://github.com/) and [Heroku](http://www.heroku.com/)):
+**Optional if you don't want to login all the time** Next, we'll define your Git user (should be the same name and email you use for [GitHub](https://github.com/) and [Heroku](http://www.heroku.com/)):
 
     $ git config --global user.name "Your Name Here"
     $ git config --global user.email "your_email@youremail.com"
@@ -279,7 +279,7 @@ Now I can open a file with `$ subl myfile.py` or start a new project in the curr
 
 Sublime Text is very extensible. For now we'll leave it like that, we already have a solid installation. To add more in the future, a good place to start would be to install the [Sublime Package Control](http://wbond.net/sublime_packages/package_control/installation).
 
-## Vim
+## Vim (**Optional**)
 
 Although Sublime Text will be our main editor, it is a good idea to learn some very basic usage of [Vim](http://www.vim.org/). It is a very popular text editor inside the terminal, and is usually pre-installed on any Unix system.
 
@@ -392,7 +392,7 @@ It will get installed in the `venv` folder, and not conflict with other projects
 
 As mentioned earlier, I like to install big packages (like Numpy), or packages I always use (like IPython) globally. All the rest I install in a virtualenv.
 
-## IPython
+## IPython (**Optional for heavy visualization work**)
 
 [IPython](http://ipython.org/) is an awesome project which provides a much better Python shell than the one you get from running `$ python` in the command-line. It has many cool functions (running Unix commands from the Python shell, easy copy & paste, creating Matplotlib charts in-line, etc.) and I'll let you refer to the [documentation](http://ipython.org/ipython-doc/stable/index.html) to discover them.
 
@@ -443,6 +443,10 @@ Then, install the `gfortran` dependency which we will need to build the librarie
 
     $ brew install gfortran
     
+You probably also need the `nose` python dependency:
+
+    $ pip install nose
+    
 Finally, you can install Numpy and Scipy with:
 
     $ brew install numpy
@@ -489,7 +493,7 @@ To connect with the command-line client, run:
 
 **Note**: By default, the MySQL user `root` has no password. It doesn't really matter for a local development database. If you wish to change it though, you can use `$ mysqladmin -u root password 'new-password'`.
 
-### MySQL Workbench
+### MySQL Workbench (**Optional or use SequelPro**)
 
 In terms of a GUI client for MySQL, I'm used to the official and free [MySQL Workbench](http://www.mysql.com/products/workbench/). But feel free to use whichever you prefer.
 
@@ -512,6 +516,7 @@ PATH=/usr/local/share/npm/bin:$PATH
         
 Open a new terminal for the `$PATH` changes to take effect.
 
+**Careful/Deprecated** Other tools such as Cordova look for this inside of XCode.app package
 We also need to tell npm where to find the Xcode Command Line Tools, by running:
 
     $ sudo xcode-select -switch /usr/bin
@@ -638,6 +643,11 @@ I mainly use Ruby for the CSS pre-processor [Compass](http://compass-style.org/)
 [Heroku](http://www.heroku.com/), if you're not already familiar with it, is a [Platform-as-a-Service](http://en.wikipedia.org/wiki/Platform_as_a_service) (PaaS) that makes it really easy to deploy your apps online. There are other similar solutions out there, but Heroku was among the first and is currently the most popular. Not only does it make a developer's life easier, but I find that having Heroku deployment in mind when building an app forces you to follow modern app development [best practices](http://www.12factor.net/).
 
 ### Install
+
+**NOTE** If you previously installed using the Heroku Toolbelt install from Heroku's website its a good idea to remove it.  Since there are no
+real instructions you will need to rm -rf /usr/local/heroku /usr/bin/heroku /usr/local/foreman /usr/bin/foreman
+
+The homebrew formula does not include foreman for some reason as of 7/1/2013
 
 Assuming that you have an account (sign up if you don't), let's install the [Heroku Client](https://devcenter.heroku.com/articles/using-the-cli) for the command-line. Heroku offers a Mac OS X installer, the [Heroku Toolbelt](https://toolbelt.heroku.com/), that includes the client. But for these kind of tools, I prefer using Homebrew. It allows us to keep better track of what we have installed. Luckily for us, Homebrew includes a `heroku-toolbelt` formula:
 
