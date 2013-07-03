@@ -771,6 +771,9 @@ Once you have selected the box image of your choice, you can either download it 
     $ vagrant init {title} //This creates a VagrantFile in the current directory with the box name
     $ vagrant up //This startups up the box using the VagrantFile as configuration
 
+**NOTE**: There is a bug with Virtual Box 2.14 (reportedly 2.10 does not have this issue).  Virtual Box 2.14 apparently requires a [manifest](https://github.com/mitchellh/vagrant/issues/1847) in addition to the ovf file.  This can be fixed one of two ways.
+Either uninstall your Virtual Box 2.14 and get the older 2.10 version or for each Vagrant box simply go into ~/.vagrant.d/boxes/BaseBoxName/virtualbox and do openssl sha1 *.vmdk *.ovf > box.mf
+
 Alternatively you can just manually edit a blank or previously created VagrantFile to point it to the right box image and Vagrant will download and assign it to the indicated name when you do vagrant up.
 
     $ mkdir <your project dir>
