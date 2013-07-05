@@ -810,6 +810,19 @@ and alternate Vagrantfile or modifications to this existing Vagrantfile will be 
 
 Instructions for installing Docker inside of a Vagrant/VirtualBox VM are [here](http://docs.docker.io/en/latest/installation/vagrant/).
 
+## Ubuntu
+
+After picking a virtual box compatible ubuntu image it is likely that this image will need to be updated.  Ubuntu's package manager is apt-get.  Login to the Ubuntu server (i.e. vagrant ssh) and perform an update:
+
+    $ vagrant ssh //login to the ubuntu box
+    $ sudo apt-get update //update the sources
+    $ sudo apt-get upgrade //make sure everything is up to date
+
+For reference here is the [apt command guide](https://help.ubuntu.com/community/AptGet/Howto)
+
+You may need or want to install the VirtualBox guest tools into Ubuntu following [this](http://virtualboxes.org/doc/installing-guest-additions-on-ubuntu/).  This may require setting up kernel modules so follow [this](http://www.howtoforge.com/building-kernel-modules-with-module-assistant-on-debian-lenny)
+
+
 ## Amazon Tools
 
 Here are instructions if you want [homebrew install of amazon tools](http://clayrichardson.me/2013/03/29/brew-install-all-available-aws-tools/)
