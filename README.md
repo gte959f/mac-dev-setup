@@ -744,7 +744,7 @@ I'll let you refer to Redis' [documentation](http://redis.io/documentation) or o
 
 VirtualBox provides a virtualization environment allowing you to run other operating system images such as Linux.  This is particularly useful when doing cloud development of backend systems to ensure compatability.
 
-Download and install the latest VirtualBox from here [virtualboxsite](https://www.virtualbox.org)
+Download and install the latest VirtualBox from here [virtualbox site](https://www.virtualbox.org)
 
 ## Vagrant
 
@@ -753,15 +753,15 @@ the host operating system (i.e. your Mac OS environment).  Files under the /vagr
 that is portable across developer machines.  Since most virtualized environments like EC2 use linux this provides a way to create a linux image and run it on your Mac, thereby, reducing surprises when you deploy to EC2.  Vagrant
 has plugins for EC2 to allow easier deployment as well.  Chef and Puppet would be complimentary tools to Vagrant.
 
-Vagrant can be found here along with [download](http://downloads.vagrantup.com) and [install instructions](http://www.vagrantup.com)
+Vagrant can be found here along with [download](http://downloads.vagrantup.com) and [install instructions](http://docs.vagrantup.com/v2/installation/index.html)
 
-Step 1: Install the Vagrant AWS plugin:
+Step 1: Install the Vagrant AWS plugin for future use
 
     $ vagrant plugin install vagrant-aws    
 
-Step 2: Next you must have a Vagrant box image corresponding to VirtualBox (or other provider) and a VagrantFile with configuration details in the current working directory.  The base linux images that you use are up to you, however, 
-Ubuntu is a popular option and one of the latest versions can be found here [Ubuntu vagrant boxes](http://cloud-images.ubuntu.com/vagrant/) and [Ubuntu vagrant sources](https://launchpad.net/ubuntu/raring/i386/vagrant)
-Also there are [official third party Vagrant boxes](http://www.vagrantbox.es) and [Puppet Labs boxes](http://puppet-vagrant-boxes.puppetlabs.com)
+Step 2: Next you must identify a Vagrant box image corresponding to VirtualBox (or other provider).  The base linux images that you use are up to you, however, Ubuntu is a popular option and one of the latest versions can be found 
+here [Ubuntu vagrant boxes](http://cloud-images.ubuntu.com/vagrant/) and [Ubuntu vagrant sources](https://launchpad.net/ubuntu/raring/i386/vagrant).  Also there are [official third party Vagrant boxes](http://www.vagrantbox.es) 
+and [Puppet Labs boxes](http://puppet-vagrant-boxes.puppetlabs.com)
 
 Once you have selected the box image of your choice, you can either download it ahead of time/use an exisitng box or use the alternative method below to have Vagrant automatically download the box.
 
@@ -770,7 +770,7 @@ Either uninstall your Virtual Box 2.14 and get the older 2.10 version or for eac
 
     $ vagrant box add {title} {url or filepath} //This is the box image you previously decided to use
     $ cd ~/.vagrant.d/boxes/<BaseBoxName>/virtualbox
-    $ openssl sha1 *.vmdk *.ovf > box.mf
+    $ openssl sha1 *.vmdk *.ovf > box.mf  //This will generate the manifest that VirtualBox's bug requires
 
 
 Step 3: Now create the VagrantFile for your project
@@ -805,7 +805,7 @@ Additional resources:
 
 ## Ubuntu
 
-After picking a virtual box compatible ubuntu image it is likely that this image will need to be updated.  Ubuntu's package manager is apt-get.  Login to the Ubuntu server (i.e. vagrant ssh) and perform an update:
+After picking a VirtualBox compatible Ubuntu image it is likely that this image will need to be updated.  Ubuntu's package manager is apt-get.  Login to the Ubuntu server (i.e. vagrant ssh) and perform an update:
 
     $ vagrant up //Start up your Ubuntu box using vagrant and then login to it and update it
     $ vagrant ssh //login to the ubuntu box
@@ -844,11 +844,12 @@ Step 1: Download your Amazon access key.  If you have an IAM account you'll need
     $ chmod 600 .aws-credentials-master
     
 Step 2: If using IAM you'll need to create your own self signed X509 certificate and then upload to AWS.
+
 NOTE: If you are not using an IAM user account and instead using the root account then skip the steps below and instead follow steps 1-6 *only* in this [alternate method](http://www.robertsosinski.com/2008/01/26/starting-amazon-ec2-with-mac-os-x/)
     
 Here is some good [background](https://help.ubuntu.com/community/EC2StartersGuide) reading on what we will be setting up
     
-A.  For IAM user accounts if you do not have an X509 certificate you will need to create one locally and upload it to your IAM user account
+    A.  For IAM user accounts if you do not have an X509 certificate you will need to create one locally and upload it to your IAM user account
     
     //This is to setup your amazon certificate and private key files (i.e. pk-*.pem and cert-*.pem)
     $ cd ~
@@ -856,12 +857,11 @@ A.  For IAM user accounts if you do not have an X509 certificate you will need t
     $ chmod 700 .ec2
     $ cd .ec2
     
-B.  Follow [these instructions](http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_UploadCertificate.html) to create your certifacte and private key with the following modifications
-    
+    B.  Follow [these instructions](http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_UploadCertificate.html) to create your certificate and private key with the following modifications:
     - Under the sections in this document labelled "Create a Private Key" name your files in step 1 and 2: pk-private-key.pem and pk-private-key-in-PCKS8-format.pem
     - Under "Create the User Signing Certificate" make sure you name the certificate file cert-<your certname>.pem
     
-C.  Make sure you pk-*.pem and cert-*.pem files are in your .ec2 directory
+    C.  Make sure you pk-*.pem and cert-*.pem files are in your .ec2 directory
     
     $ cd ~/.ec2
     $ chmod 600 *.pem
@@ -894,8 +894,8 @@ Step 4: Select your AWS images to use.  If you are using vagrant to manage then 
 
 Additional resources:
 
-[AWS Setup for PHP](http://phpmaster.com/from-zero-to-cloud-2/)
-[Newer manual install](http://www.admon.org/setup-amazon-ec2-api-tools-on-macbook/) 
+- [AWS Setup for PHP](http://phpmaster.com/from-zero-to-cloud-2/)
+- [Newer manual install](http://www.admon.org/setup-amazon-ec2-api-tools-on-macbook/) 
 
 ## Projects folder
 
