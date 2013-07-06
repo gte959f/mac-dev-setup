@@ -903,7 +903,7 @@ Additional resources:
 
 ## Projects folder
 
-This really depends on how you want to organize your files, but I like to put all my version-controlled projects in `~/Projects`. Other documents I may have, or things not yet under version control, I like to put in `~/Dropbox` (if you have Dropbox installed), or `~/Documents`.
+This really depends on how you want to organize your files, but I like to put all my version-controlled projects in `~/Development`. Other documents I may have, or things not yet under version control, I like to put in `~/Dropbox` (if you have Dropbox installed), or `~/Documents`.
 
 ## Apps
 
