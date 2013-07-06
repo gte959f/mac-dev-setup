@@ -865,7 +865,7 @@ Third, make sure you pk-*.pem and cert-*.pem files are in your .ec2 directory
     $ cd ~/.ec2
     $ chmod 600 *.pem
     
-Fourth, setup your .bash_profile (or if you use zsh setup in your zsh profile)
+Step 3: Setup your .bash_profile (or if you use zsh setup in your zsh profile)
 
     $ cd ~
     $ vi .bash_profile
@@ -886,7 +886,7 @@ Fourth, setup your .bash_profile (or if you use zsh setup in your zsh profile)
     export AWS_ELB_HOME="/usr/local/Library/LinkedKegs/elb-tools/jars"
     export AWS_RDS_HOME="/usr/local/Cellar/rds-command-line-tools/1.12.002/libexec"
 
-Fifth, select your AWS images to use.  If you are using vagrant to manage then see the vagrant section.
+Step 4: Select your AWS images to use.  If you are using vagrant to manage then see the vagrant section.
 
 - Amazon directory of [AMI Images](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonLinuxAMIBasics.html)
 - Ubuntu can be found here [Ubuntu official images](http://cloud-images.ubuntu.com)
