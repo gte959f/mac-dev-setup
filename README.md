@@ -886,7 +886,12 @@ Step 3: Setup your .bash_profile (or if you use zsh setup in your zsh profile)
     export AWS_ELB_HOME="/usr/local/Library/LinkedKegs/elb-tools/jars"
     export AWS_RDS_HOME="/usr/local/Cellar/rds-command-line-tools/1.12.002/libexec"
 
-Step 4: Select your AWS images to use.  If you are using vagrant to manage then see the vagrant section.
+Step 4: Verify that everything is working.  A couple of commands should tell you if connected:
+    
+    $ ec2-describe-regions //Get a list of available regions to host
+    $ ec2-describe-images -o amazon  //Get a list of available images
+    
+Step 5: Select your AWS images to use.  If you are using vagrant to manage then see the vagrant section.
 
 - Amazon directory of [AMI Images](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonLinuxAMIBasics.html)
 - Ubuntu can be found here [Ubuntu official images](http://cloud-images.ubuntu.com)
