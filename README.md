@@ -849,7 +849,7 @@ NOTE: If you are not using an IAM user account and instead using the root accoun
     
 Here is some good [background](https://help.ubuntu.com/community/EC2StartersGuide) reading on what we will be setting up
     
-  A.  For IAM user accounts if you do not have an X509 certificate you will need to create one locally and upload it to your IAM user account
+A.  For IAM user accounts if you do not have an X509 certificate you will need to create one locally and upload it to your IAM user account
     
     //This is to setup your amazon certificate and private key files (i.e. pk-*.pem and cert-*.pem)
     $ cd ~
@@ -857,12 +857,12 @@ Here is some good [background](https://help.ubuntu.com/community/EC2StartersGuid
     $ chmod 700 .ec2
     $ cd .ec2
     
-  B.  Follow [these instructions](http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_UploadCertificate.html) to create your certificate and private key with the following modifications:
+B.  Follow [these instructions](http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_UploadCertificate.html) to create your certificate and private key with the following modifications:
     
-    - Under the sections in this document labelled "Create a Private Key" name your files in step 1 and 2: pk-private-key.pem and pk-private-key-in-PCKS8-format.pem
-    - Under "Create the User Signing Certificate" make sure you name the certificate file cert-<your certname>.pem
+- Under the sections in this document labelled "Create a Private Key" name your files in step 1 and 2: pk-private-key.pem and pk-private-key-in-PCKS8-format.pem
+- Under "Create the User Signing Certificate" make sure you name the certificate file cert-<your certname>.pem
     
-  C.  Make sure you pk-*.pem and cert-*.pem files are in your .ec2 directory
+C.  Make sure you pk-*.pem and cert-*.pem files are in your .ec2 directory
     
     $ cd ~/.ec2
     $ chmod 600 *.pem
