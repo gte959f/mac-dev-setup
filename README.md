@@ -858,6 +858,7 @@ Here is some good [background](https://help.ubuntu.com/community/EC2StartersGuid
     $ cd .ec2
     
   B.  Follow [these instructions](http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_UploadCertificate.html) to create your certificate and private key with the following modifications:
+    
     - Under the sections in this document labelled "Create a Private Key" name your files in step 1 and 2: pk-private-key.pem and pk-private-key-in-PCKS8-format.pem
     - Under "Create the User Signing Certificate" make sure you name the certificate file cert-<your certname>.pem
     
