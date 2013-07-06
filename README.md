@@ -755,24 +755,31 @@ has plugins for EC2 to allow easier deployment as well.  Chef and Puppet would b
 
 Vagrant can be found here along with [download](http://downloads.vagrantup.com) and [install instructions](http://www.vagrantup.com)
 
-Next install the Vagrant AWS plugin:
+Step 1: Install the Vagrant AWS plugin:
 
     $ vagrant plugin install vagrant-aws    
 
-Next you must have a Vagrant box image corresponding to VirtualBox (or other provider) and a VagrantFile with configuration details in the current working directory.  The base linux images that you use are up to you, however, Ubuntu is a popular option and 
-one of the latest versions can be found here [Ubuntu vagrant boxes](http://cloud-images.ubuntu.com/vagrant/) and [Ubuntu vagrant sources](https://launchpad.net/ubuntu/raring/i386/vagrant)
+Step 2: Next you must have a Vagrant box image corresponding to VirtualBox (or other provider) and a VagrantFile with configuration details in the current working directory.  The base linux images that you use are up to you, however, 
+Ubuntu is a popular option and one of the latest versions can be found here [Ubuntu vagrant boxes](http://cloud-images.ubuntu.com/vagrant/) and [Ubuntu vagrant sources](https://launchpad.net/ubuntu/raring/i386/vagrant)
 Also there are [official third party Vagrant boxes](http://www.vagrantbox.es) and [Puppet Labs boxes](http://puppet-vagrant-boxes.puppetlabs.com)
 
 Once you have selected the box image of your choice, you can either download it ahead of time/use an exisitng box or use the alternative method below to have Vagrant automatically download the box.
 
+**NOTE**: There is a bug with Virtual Box 2.14 (reportedly 2.10 does not have this issue).  Virtual Box 2.14 apparently requires a [manifest](https://github.com/mitchellh/vagrant/issues/1847) in addition to the ovf file.  This can be fixed one of two ways.
+Either uninstall your Virtual Box 2.14 and get the older 2.10 version or for each Vagrant box create a manifest such that VirtualBox can open the box
+
+    $ vagrant box add {title} {url or filepath} //This is the box image you previously decided to use
+    $ cd ~/.vagrant.d/boxes/<BaseBoxName>/virtualbox
+    $ openssl sha1 *.vmdk *.ovf > box.mf
+
+
+Step 3: Now create the VagrantFile for your project
+
+    $ cd ~/Development
     $ mkdir <your project dir>
     $ cd <your project dir>
-    $ vagrant box add {title} {url or filepath} //This is the box image you previously decided to use
     $ vagrant init {title} //This creates a VagrantFile in the current directory with the box name
     $ vagrant up //This startups up the box using the VagrantFile as configuration
-
-**NOTE**: There is a bug with Virtual Box 2.14 (reportedly 2.10 does not have this issue).  Virtual Box 2.14 apparently requires a [manifest](https://github.com/mitchellh/vagrant/issues/1847) in addition to the ovf file.  This can be fixed one of two ways.
-Either uninstall your Virtual Box 2.14 and get the older 2.10 version or for each Vagrant box simply go into ~/.vagrant.d/boxes/BaseBoxName/virtualbox and do openssl sha1 *.vmdk *.ovf > box.mf
 
 Alternatively you can just manually edit a blank or previously created VagrantFile to point it to the right box image and Vagrant will download and assign it to the indicated name when you do vagrant up.
 
@@ -782,7 +789,6 @@ Alternatively you can just manually edit a blank or previously created VagrantFi
     $ subl VagrantFile //Set config.vm.box_url = <your box file url or file path>
     $ vagrant up //This startups up the box using the VagrantFile and will download the box image and assign to {title}
 
-
 If you would like to use Vagrant with an alternate provider such as AWS a few modification will be needed:
 
     $ ... make sure you have a Vagrantfile for AWS box before you do a vagrant up and want to use aws see below
@@ -790,14 +796,24 @@ If you would like to use Vagrant with an alternate provider such as AWS a few mo
     $ vagrant init ...
     $ vagrant up --provider=aws //This ensures that the AWS provider is used with vagrant and prior to this the AWS tools must be installed.
 
-AWS detailed [instructions and code](https://github.com/mitchellh/vagrant-aws) for converting and AMI to Vagrant with AWS provider
+Additional resources:
 
+- AWS detailed [instructions and code](https://github.com/mitchellh/vagrant-aws) for converting and AMI to Vagrant with AWS provider
+- Here is how to use Puppet and Vagrant [together](http://www.andrewmunsell.com/blog/development-environments-with-vagrant-and-puppet/)
+- Dummy box example [instructions](http://serverascode.com/2013/04/25/where-to-find-vagrant-boxes.html) for creating a blank VagrantFile based on Ubuntu raw images
+- Lamp box example [instructions](https://github.com/marcojanssen/vagrant-puppet-lamp) with Vagrant (probably want to modify VagrantFile to use i386 image).
 
-Here is how to use Puppet and Vagrant [together](http://www.andrewmunsell.com/blog/development-environments-with-vagrant-and-puppet/)
+## Ubuntu
 
-Dummy box example [instructions](http://serverascode.com/2013/04/25/where-to-find-vagrant-boxes.html) for creating a blank VagrantFile based on Ubuntu raw images
+After picking a virtual box compatible ubuntu image it is likely that this image will need to be updated.  Ubuntu's package manager is apt-get.  Login to the Ubuntu server (i.e. vagrant ssh) and perform an update:
 
-Lamp box example [instructions](https://github.com/marcojanssen/vagrant-puppet-lamp) with Vagrant (probably want to modify VagrantFile to use i386 image).
+    $ vagrant up //Start up your Ubuntu box using vagrant and then login to it and update it
+    $ vagrant ssh //login to the ubuntu box
+    $ sudo apt-get update //update the sources
+    $ sudo apt-get upgrade //make sure everything is up to date
+
+For reference here is the [apt command guide](https://help.ubuntu.com/community/AptGet/Howto)
+You may need or want to install the VirtualBox guest tools into Ubuntu following [this](http://virtualboxes.org/doc/installing-guest-additions-on-ubuntu/).  This may require setting up kernel modules so follow [this](http://www.howtoforge.com/building-kernel-modules-with-module-assistant-on-debian-lenny)
 
 ## Docker
 
@@ -806,22 +822,9 @@ the provider needs to contain costs by reusing a shared pool of virtual machines
 are isolated.
 
 **NOTE**: The below instructions should be modified in that the latest Docker repository only has a Vagrantfile for Ubuntu 12.X.  If you want to use Ubuntu 13.x (recommended) which has the 3.8 kernel already in place then
-and alternate Vagrantfile or modifications to this existing Vagrantfile will be needed.  Info can be pulled from [here](http://docs.docker.io/en/latest/installation/ubuntulinux/#ubuntu-raring)
+an alternate Vagrantfile or modifications to this existing Vagrantfile will be needed.  Info can be pulled from [here](http://docs.docker.io/en/latest/installation/ubuntulinux/#ubuntu-raring)
 
 Instructions for installing Docker inside of a Vagrant/VirtualBox VM are [here](http://docs.docker.io/en/latest/installation/vagrant/).
-
-## Ubuntu
-
-After picking a virtual box compatible ubuntu image it is likely that this image will need to be updated.  Ubuntu's package manager is apt-get.  Login to the Ubuntu server (i.e. vagrant ssh) and perform an update:
-
-    $ vagrant ssh //login to the ubuntu box
-    $ sudo apt-get update //update the sources
-    $ sudo apt-get upgrade //make sure everything is up to date
-
-For reference here is the [apt command guide](https://help.ubuntu.com/community/AptGet/Howto)
-
-You may need or want to install the VirtualBox guest tools into Ubuntu following [this](http://virtualboxes.org/doc/installing-guest-additions-on-ubuntu/).  This may require setting up kernel modules so follow [this](http://www.howtoforge.com/building-kernel-modules-with-module-assistant-on-debian-lenny)
-
 
 ## Amazon Tools
 
@@ -843,20 +846,23 @@ Step 1: Download your Amazon access key.  If you have an IAM account you'll need
 Step 2: If using IAM you'll need to create your own self signed X509 certificate and then upload to AWS.
 NOTE: If you are not using an IAM user account and instead using the root account then skip the steps below and instead follow steps 1-6 *only* in this [alternate method](http://www.robertsosinski.com/2008/01/26/starting-amazon-ec2-with-mac-os-x/)
     
-    Here is some good [background](https://help.ubuntu.com/community/EC2StartersGuide) reading on what we will be setting up
+Here is some good [background](https://help.ubuntu.com/community/EC2StartersGuide) reading on what we will be setting up
     
-    A.  For IAM user accounts if you do not have an X509 certificate you will need to create one locally and upload it to your IAM user account
+A.  For IAM user accounts if you do not have an X509 certificate you will need to create one locally and upload it to your IAM user account
+    
     //This is to setup your amazon certificate and private key files (i.e. pk-*.pem and cert-*.pem)
     $ cd ~
     $ mkdir .ec2
     $ chmod 700 .ec2
     $ cd .ec2
     
-    B.  Follow [these instructions](http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_UploadCertificate.html) to create your certifacte and private key with the following modifications
+B.  Follow [these instructions](http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_UploadCertificate.html) to create your certifacte and private key with the following modifications
+    
     - Under the sections in this document labelled "Create a Private Key" name your files in step 1 and 2: pk-private-key.pem and pk-private-key-in-PCKS8-format.pem
     - Under "Create the User Signing Certificate" make sure you name the certificate file cert-<your certname>.pem
     
-    C.  Make sure you pk-*.pem and cert-*.pem files are in your .ec2 directory
+C.  Make sure you pk-*.pem and cert-*.pem files are in your .ec2 directory
+    
     $ cd ~/.ec2
     $ chmod 600 *.pem
     
@@ -882,10 +888,12 @@ Step 3: Setup your .bash_profile (or if you use zsh setup in your zsh profile)
     export AWS_RDS_HOME="/usr/local/Cellar/rds-command-line-tools/1.12.002/libexec"
 
 Step 4: Select your AWS images to use.  If you are using vagrant to manage then see the vagrant section.
-Amazon directory of [AMI Images](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonLinuxAMIBasics.html)
-Ubuntu can be found here [Ubuntu official images](http://cloud-images.ubuntu.com)
+
+- Amazon directory of [AMI Images](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonLinuxAMIBasics.html)
+- Ubuntu can be found here [Ubuntu official images](http://cloud-images.ubuntu.com)
 
 Additional resources:
+
 [AWS Setup for PHP](http://phpmaster.com/from-zero-to-cloud-2/)
 [Newer manual install](http://www.admon.org/setup-amazon-ec2-api-tools-on-macbook/) 
 
