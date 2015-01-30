@@ -533,6 +533,12 @@ Node modules are installed locally in the `node_modules` folder of each project 
 
 ### Npm usage
 
+NOTE: Use sudo to install the global packages as some directories will inevitably be inaccessible.
+
+First:
+
+   $ npm cache clean # Get rid of any cruft
+   
 To install a package:
 
     $ npm install <package> # Install locally
@@ -900,6 +906,25 @@ Additional resources:
 
 - [AWS Setup for PHP](http://phpmaster.com/from-zero-to-cloud-2/)
 - [Newer manual install](http://www.admon.org/setup-amazon-ec2-api-tools-on-macbook/) 
+
+## Ionic & Cordova & Android Studio and XCode
+
+Installing these is straightforward but keeping them updated and interoperating is a pain. Here's some common issues, rituals, and errors:
+
+Pull down Android Studio NOT Android Developer Tools (now abandoned by Google): http://developer.android.com/sdk/index.html
+The SDK will be automagically installed in some directory (on OSX) like /Users/<you>/Library/Android/sdk.  You will need to add the platform-tools and tools subdirectories to your PATH for the command line tools like cordova/ionic to work
+
+For ionic emulate to work with ios you'll need to also install ios-sim: npm install -g ios-sim
+
+cordova build for android will require ant (ugh).  Just use homebrew to get it installed unless you want to self manage.  brew install ant; brew install ant-contrib
+
+You'll need specific versions of the android sdk with the default cordova/ionic generators, but should be able to change then in manifest.xml later.  Fire up Android Studio->Configure->SDK Manager to pull down the other sdk's.  Or just run android on the command line if its all setup already
+http://stackoverflow.com/questions/24931155/cordova-3-5-0-install-error-please-install-android-target-19
+
+Android emulator on Mac is dog slow.  Do a couple of things to make it bearable or just test on native devices.  Install and configure https://www.genymotion.com/#!/download  and/or make sure to use SDK Manager to download x86 HAXM and x86 Atom Accelerators (scroll down near the bottom of the page).  Make sure to configure an Android Virtual device targeted to the same sdk version you are building for and also using a virtual device which is Intel based if you want the HAXM speed ups to work. http://cordova.apache.org/docs/en/4.0.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide
+
+Update cordova and ionic: sudo npm update -g cordova; sudo npm update -g ionic
+Might need to do the following to project directories: cordova platform update ios; cordova platform update android 
 
 ## Projects folder
 
