@@ -912,18 +912,48 @@ Additional resources:
 Installing these is straightforward but keeping them updated and interoperating is a pain. Here's some common issues, rituals, and errors:
 
 ### Android Studio & Tools
-Pull down Android Studio NOT [Android Developer Tools (now abandoned by Google)](http://developer.android.com/sdk/index.html)
-The SDK will be automagically installed in some directory (on OSX) like /Users/<you>/Library/Android/sdk.  
-You will need to add the $ANDROID_TOOLS_HOME/platform-tools and $ANDROID_TOOLS_HOME/tools subdirectories to your PATH for the command line tools like cordova and ionic to work
+1. Pull down [Android Studio](http://developer.android.com/sdk/index.html) NOT Android Developer Tools (now abandoned by Google)
+The SDK will be automagically installed in some directory (on OSX) like `/Users/<you>/Library/Android/sdk` which you should setup under some environment variable in your *.bash_profile* (i.e. `$ANDROID_TOOLS_HOME`).  
+You will need to add the `$ANDROID_TOOLS_HOME/platform-tools` and `$ANDROID_TOOLS_HOME/tools` subdirectories to your `$PATH` for the command line tools like cordova and ionic to work
 
-For ionic emulate to work with ios you'll need to also install ios-sim: npm install -g ios-sim
+2. Ionic uses cordova for building.  `cordova build` for the `android` target will require ant (ugh).  Just use homebrew to get it installed unless you want to self manage.  
+    $ brew install ant
+    $ brew install ant-contrib
 
-cordova build for android will require ant (ugh).  Just use homebrew to get it installed unless you want to self manage.  brew install ant; brew install ant-contrib
-
-You'll need specific versions of the android sdk with the default cordova/ionic generators, but should be able to change then in manifest.xml later.  Fire up Android Studio->Configure->SDK Manager to pull down the other sdk's.  Or just run android on the command line if its all setup already
+3. You'll need specific versions of the android sdk for use with the default cordova/ionic code generators, but should be able to change then in manifest.xml later.  Fire up Android Studio->Configure->SDK Manager to pull down the other sdk's.  Or just run `$ android` on the command line if its all setup already.  Then select all the tools under Android 19 or whatever cordova asks for.
 http://stackoverflow.com/questions/24931155/cordova-3-5-0-install-error-please-install-android-target-19
 
-Android emulator on Mac is dog slow.  Do a couple of things to make it bearable or just test on native devices.  Install and configure https://www.genymotion.com/#!/download  and/or make sure to use SDK Manager to download x86 HAXM and x86 Atom Accelerators (scroll down near the bottom of the page).  Make sure to configure an Android Virtual device targeted to the same sdk version you are building for and also using a virtual device which is Intel based if you want the HAXM speed ups to work. http://cordova.apache.org/docs/en/4.0.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide
+### Emulators
+1. For ionic emulate to work with ios you'll need to also install ios-sim: `$ npm install -g ios-sim`
+
+2. Android emulator on Mac is dog slow.  Do a couple of things to make it bearable or just test on native devices.  
+- Install and configure (https://www.genymotion.com/#!/download)  and
+- Make sure to use SDK Manager to download x86 HAXM and x86 Atom Accelerators, scroll down near the bottom of [this page](http://cordova.apache.org/docs/en/4.0.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide).  
+- Make sure to configure an Android Virtual device targeted to the same sdk version you are building for and also using a virtual device which is Intel based if you want the HAXM speed ups to work. Fire up Android Studio and open any project.  Select Tools->Android->AVD Manager and configure a virtual device ensuring that its system image is an x86 based one.
+
+### Debugging and LiveReload
+LiveReload will work with any websocket enabled browser or emulated device browser.  It will allow for automatic code deploy to the target while you edit and save your files - making development and debugging a bit easier.  There are a couple of different ways to run with [live reload mode](http://ionicframework.com/blog/live-reload-all-things-ionic-cli/)
+1. For browser based use ionic's serve: `$ ionic serve` will ask for an address to bind to
+2. For ios or emulator emulator with livereload:
+    $ ionic platform add [ios | android]
+    $ ionic build [ios | android]
+    $ ionic emulate [ios | android ] --livereload --consolelogs --serverlogs
+
+### Native devices
+Android
+See [these](http://developer.android.com/tools/device.html) general instructions and note:
+- First on the android device enable USB Debugging.  Go to `Settings->About->Build Number`.  Select `Build Number` 7 times to enable the Developer menu.  Go to the `Developer` menu and enable `USB Debugging`.
+- Make sure to connect the Android device to your Mac (or other computer).
+- Fire up Android Studio and open any Project.  Select `Device Monitor` and verify that you see the device.  Also you can select `$ adb devices` to view a device list.  If nothing shows up it may be that the device hasn't yet allowed the machine since the keys have not been sent by the host.  Give the next step a shot.
+- Switch to your ionic project directory and run with all the debug settings on:
+    $ ionic build
+    $ ionic run --device --debug -l -c -s android
+
+### Publishing & Ongoing
+To publish your app will need to do some cleanup and follow some [steps](http://ionicframework.com/docs/guide/publishing.html)
+
+If you need switch the ip address that ionic will serve for live reload run:
+    $ ionic address
 
 Update cordova and ionic: sudo npm update -g cordova; sudo npm update -g ionic
 Might need to do the following to project directories: cordova platform update ios; cordova platform update android 
