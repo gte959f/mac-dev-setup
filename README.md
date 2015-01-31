@@ -953,7 +953,14 @@ You can then use the snippets in a javascript file by typing:
 1. For ionic emulate to work with ios you'll need to also install ios-sim: `$ npm install -g ios-sim`
 
 2. Android emulator on Mac is dog slow.  Do a couple of things to make it bearable or just test on native devices.
-    - Install and configure (https://www.genymotion.com/#!/download).  This will require two downloads - one for genymotion and one for the android studio plugin (if you want to use it).  The user manual for genymotion is here: https://www.genymotion.com/assets/doc/Genymotion-2.3.1-User-Guide.pdf
+    - Install and configure (https://www.genymotion.com/#!/download).  This will require two downloads - one for genymotion and one for the android studio plugin (if you want to use it).  The user manual for genymotion is here: https://www.genymotion.com/assets/doc/Genymotion-2.3.1-User-Guide.pdf.  There's a good chance that Genymotion will not work on the first try due to the way that the network is setup in VirtualBox.  If so, try the following:
+        * Run VirtualBox.
+        * Open File > Preferences > Network (or VirtualBox > Preferencesfor Mac OS X).
+        * Edit the Host-only Network that exists or add a New one (preferred) .
+        * Check that the adapter IPv4 address is in the same network (192.168.56.0/24 by default) as the DHCP server address, lower address bound and upper address bound. If not, your virtual device cannot start.  If you added a new one then set it up so that the DHCP server address is not in the lower and upper bound range but that the interface address is above the lower range.  Then go to the virtual machine instance for each of your phone devices in VirtualBox and click Settings->Network.  Assign them all to this new network adapter - i.e. vboxnet02 or whatever its called.  Try restarting Genymotion and see if it works.
+        * You can also remove the Host-only Network. Genymotion will automatically recreate it at the next virtual device start.
+        * Your firewall may block the application. The Genymotion application must connect to the virtual device via the local network. If you have a firewall, make sure that you allowed connections to the Genymotion network, set to 192.168.56.0/24 by default.
+        * You can also check the log files to see whether an error occurred. To do so, please refer to How do I generate an archive containing Genymotion logs of a virtual device?. If there is no error, restart your virtual device directly from the VirtualBox application.
     - Make sure to use SDK Manager to download x86 HAXM and x86 Atom Accelerators, scroll down near the bottom of [this page](http://cordova.apache.org/docs/en/4.0.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide).  
     - Make sure to configure an Android Virtual device targeted to the same sdk version you are building for and also using a virtual device which is Intel based if you want the HAXM speed ups to work. Fire up Android Studio and open any project.  Select Tools->Android->AVD Manager and configure a virtual device ensuring that its system image is an x86 based one.
 
