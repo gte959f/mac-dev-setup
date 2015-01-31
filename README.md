@@ -911,8 +911,10 @@ Additional resources:
 
 Installing these is straightforward but keeping them updated and interoperating is a pain. Here's some common issues, rituals, and errors:
 
-Pull down Android Studio NOT Android Developer Tools (now abandoned by Google): http://developer.android.com/sdk/index.html
-The SDK will be automagically installed in some directory (on OSX) like /Users/<you>/Library/Android/sdk.  You will need to add the platform-tools and tools subdirectories to your PATH for the command line tools like cordova/ionic to work
+### Android Studio & Tools
+Pull down Android Studio NOT [Android Developer Tools (now abandoned by Google)](http://developer.android.com/sdk/index.html)
+The SDK will be automagically installed in some directory (on OSX) like /Users/<you>/Library/Android/sdk.  
+You will need to add the $ANDROID_TOOLS_HOME/platform-tools and $ANDROID_TOOLS_HOME/tools subdirectories to your PATH for the command line tools like cordova and ionic to work
 
 For ionic emulate to work with ios you'll need to also install ios-sim: npm install -g ios-sim
 
