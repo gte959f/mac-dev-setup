@@ -938,7 +938,7 @@ You will need to add the `$ANDROID_TOOLS_HOME/platform-tools` and `$ANDROID_TOOL
 ### Debugging and LiveReload
 LiveReload will work with any websocket enabled browser or emulated device browser.  It will allow for automatic code deploy to the target while you edit and save your files - making development and debugging a bit easier.  There are a couple of different ways to run with [live reload mode](http://ionicframework.com/blog/live-reload-all-things-ionic-cli/)
 
-1. For browser based use ionic's serve: `$ ionic serve` will ask for an address to bind to
+1. For browser based use ionic's serve: `$ ionic serve` will ask for an address to bind to or better yet do `$ ionic serve --lab` to get a side by side ios and android html simulation with live reload on both
 
 2. For ios or emulator emulator with livereload:
 
@@ -958,6 +958,9 @@ See [these](http://developer.android.com/tools/device.html) general instructions
     
     $ ionic build
     $ ionic run --device --debug -l -c -s android
+
+### Special such as external API proxying, icons, splashscreens, and other config
+See this nice readme in the [ionic-cli repo](https://github.com/driftyco/ionic-cli)
 
 ### Publishing & Ongoing
 
