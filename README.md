@@ -926,6 +926,10 @@ You will need to add the `$ANDROID_TOOLS_HOME/platform-tools` and `$ANDROID_TOOL
 
 4. You'll need specific versions of the android sdk for use with the default cordova/ionic code generators, but should be able to change then in manifest.xml later.  Fire up Android Studio->Configure->SDK Manager to pull down the other sdk's.  Or just run `$ android` on the command line if its all setup already.  Then select all the tools under Android 19 or whatever cordova asks for.  See this stackoverflow [topic](http://stackoverflow.com/questions/24931155/cordova-3-5-0-install-error-please-install-android-target-19)
 
+### Code Generators and Boilerplates
+
+In addition to the default starter projects that ionic creates with `$ ionic start <app> <template>` where <template> is {tabs, sidemenu, blank] one can also use the [yeoman generators](https://github.com/diegonetto/generator-ionic), any [starter projects on github](https://github.com/driftyco/ionic-starter-tabs), and any [codepen projects](http://codepen.io/ionic/pen/odqCz) or [code pen demos](http://codepen.io/ionic/public-list/).
+
 ### Emulators
 
 1. For ionic emulate to work with ios you'll need to also install ios-sim: `$ npm install -g ios-sim`
