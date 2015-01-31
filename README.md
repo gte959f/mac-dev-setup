@@ -930,12 +930,30 @@ You will need to add the `$ANDROID_TOOLS_HOME/platform-tools` and `$ANDROID_TOOL
 
 In addition to the default starter projects that ionic creates with `$ ionic start <app> <template>` where <template> is {tabs, sidemenu, blank] one can also use the [yeoman generators](https://github.com/diegonetto/generator-ionic), any [starter projects on github](https://github.com/driftyco/ionic-starter-tabs), and any [codepen projects](http://codepen.io/ionic/pen/odqCz) or [code pen demos](http://codepen.io/ionic/public-list/).
 
+Setup Sublime with the Angular package so you get good code completions: https://github.com/angular-ui/AngularJS-sublime-package
+Here's the interesting key bindings:
+
+    - super+ctrl+l
+    If not indexed: Indexes current project; If indexed: Opens quick panel with a list of definitions to search through [command: angularjs_find]
+    - super+ctrl+alt+l
+    Attempts to goto definition (project must be indexed first) [command: angularjs_go_to_definition]
+    - super+shift+ctrl+l
+
+Download and install John Papa's style guide snippets to Sublime to make things a bit cleaner when you code up the angular stuff 
+https://github.com/johnpapa/angularjs-styleguide#file-templates-and-snippets
+You can then use the snippets in a javascript file by typing:
+    
+    ngcontroller // creates an Angular controller
+    ngdirective // creates an Angular directive
+    ngfactory // creates an Angular factory
+    ngmodule // creates an Angular module
+
 ### Emulators
 
 1. For ionic emulate to work with ios you'll need to also install ios-sim: `$ npm install -g ios-sim`
 
 2. Android emulator on Mac is dog slow.  Do a couple of things to make it bearable or just test on native devices.
-    - Install and configure (https://www.genymotion.com/#!/download)  and
+    - Install and configure (https://www.genymotion.com/#!/download).  This will require two downloads - one for genymotion and one for the android studio plugin (if you want to use it).  The user manual for genymotion is here: https://www.genymotion.com/assets/doc/Genymotion-2.3.1-User-Guide.pdf
     - Make sure to use SDK Manager to download x86 HAXM and x86 Atom Accelerators, scroll down near the bottom of [this page](http://cordova.apache.org/docs/en/4.0.0/guide_platforms_android_index.md.html#Android%20Platform%20Guide).  
     - Make sure to configure an Android Virtual device targeted to the same sdk version you are building for and also using a virtual device which is Intel based if you want the HAXM speed ups to work. Fire up Android Studio and open any project.  Select Tools->Android->AVD Manager and configure a virtual device ensuring that its system image is an x86 based one.
 
@@ -949,6 +967,8 @@ LiveReload will work with any websocket enabled browser or emulated device brows
     $ ionic platform add [ios | android]
     $ ionic build [ios | android]
     $ ionic emulate [ios | android ] --livereload --consolelogs --serverlogs
+
+3. For native debugging download and install [GapDebug](https://www.genuitec.com/products/gapdebug/download/)
 
 ### Native devices
 
